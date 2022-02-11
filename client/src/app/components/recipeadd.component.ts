@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Ingredient, Recipe } from '../models';
 import { RecipeService } from '../services/recipe.service';
 
@@ -15,7 +16,8 @@ export class RecipeAddComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private recipeSvc: RecipeService
+    private recipeSvc: RecipeService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -37,15 +39,29 @@ export class RecipeAddComponent implements OnInit {
     recipe.ingredients = newIngredients
     console.info("Recipe ingredients after: ", JSON.stringify(recipe.ingredients))
 
+    this.recipeSvc.addRecipe(recipe)
+      .then(result => {
+        console.info("Added succesfully: ", result)
+      })
+      .catch(error => {
+        console.error("ERROR in recipeAdd sendRecipe: ", error)
+      })
+
+    this.router.navigate([''])
+
   }
 
   createRecipeForm(): FormGroup {
     this.ingredientsArray = this.createIngredients()
     return this.fb.group({
-      title: this.fb.control(''),
+      title: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(3)]),
       ingredients: this.createIngredients(),
-      instruction: this.fb.control(''),
-      image: this.fb.control('')
+      instruction: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(3)]),
+      image: this.fb.control('', [Validators.required])
     })
   }
 
@@ -55,12 +71,14 @@ export class RecipeAddComponent implements OnInit {
 
   createIngredient(ing: Partial<Ingredient>): FormGroup {
     return this.fb.group ({
-      ingredientLine: this.fb.control(ing?.ingredient || '', [Validators.required])
+      ingredientLine: this.fb.control(ing?.ingredient || '', [
+        Validators.required,
+        Validators.minLength(3)])
     })
   }
 
   createIngredients(ingredients: Ingredient[] = []): FormArray {
-    const ingredientList = this.fb.array([], Validators.required)
+    const ingredientList = this.fb.array([], [Validators.required])
     for (let i of ingredients)
       ingredientList.push(this.createIngredient(i))
     return ingredientList
