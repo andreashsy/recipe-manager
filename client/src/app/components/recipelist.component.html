@@ -1,2 +1,4 @@
 <h2>Your recipes</h2>
-<div></div>
+<div *ngFor="let r of recipes" class="recipe-list">
+  {{r.title}}
+</div>

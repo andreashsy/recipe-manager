@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Recipe } from '../models';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-recipelist',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeListComponent implements OnInit {
 
-  constructor() { }
+  jsonArray: JSON[] = []
+  demoString: string = ""
+  recipes: Recipe[] = []
+
+  constructor(private recipeSvc: RecipeService) { }
 
   ngOnInit(): void {
+    this.recipeSvc.getAllRecipes()
+      .then(result => {
+        this.recipes = result
+        this.demoString = JSON.stringify(result)
+        console.info("Response from server: ", JSON.stringify(result))
+      })
+      .catch(error => {
+        console.error("ERROR in RecipeListComponent ngOnInit: ", error)
+      })
   }
 
 }

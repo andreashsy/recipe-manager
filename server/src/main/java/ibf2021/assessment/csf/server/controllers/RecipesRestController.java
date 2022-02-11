@@ -24,6 +24,7 @@ public class RecipesRestController {
 
     @GetMapping(path="/recipes") //, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getRecipes() {
+        System.out.println("getRecipes() hit");
         List<Recipe> recipes = recipeService.getAllRecipes();
         List<String> recipesString = new LinkedList<String>();
         // build json string with only id and name
