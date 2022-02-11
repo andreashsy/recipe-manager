@@ -1,1 +1,44 @@
-<p>recipeadd works!</p>
+<h2>Add Recipe</h2>
+
+<form [formGroup]="addForm" (ngSubmit)="sendRecipe()">
+  <table>
+    <tr>
+      <td><label for="title">Title</label></td>
+      <td><input type="text" id="title" formControlName="title"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <table>
+          <thead>
+            <th>Ingredients</th>
+          </thead>
+          <tbody formArrayName="ingredientsArray">
+            <tr *ngFor="let ingGroup of ingredientsArray.controls; let i = index" [formGroup]="ingGroup">
+              <td><input type="text" formControlName="ingredientLine"></td>
+              <td><button (click)="deleteIngredient(i)">X</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="vertical-align:top;">
+        <button type="button" (click)="addIngredient([])">Add Ingredient</button>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="instruction">Instructions</label></td>
+      <td><textarea type="text" id="instruction" formControlName="instruction"></textarea></td>
+    </tr>
+    <tr>
+      <td><label for="image">Image</label></td>
+      <td><input type="text" id="image" formControlName="image"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit">Save Recipe</button></td>
+    </tr>
+  </table>
+</form>
+
+<button [routerLink]="['']">Back</button>

@@ -20,15 +20,11 @@ export class RecipeListComponent implements OnInit {
       .then(result => {
         this.recipes = result
         this.demoString = JSON.stringify(result)
-        console.info("Response from server: ", JSON.stringify(result))
+        console.info("Response from server for all recipes: ", JSON.stringify(result))
       })
       .catch(error => {
         console.error("ERROR in RecipeListComponent ngOnInit: ", error)
       })
-  }
-
-  addRecipe() {
-    console.info("Add recipe button pressed!")
   }
 
 }

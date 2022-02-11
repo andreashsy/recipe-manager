@@ -42,7 +42,7 @@ public class RecipeRestController {
                 .add("id", recipe.getId())
                 .add("image", recipe.getImage())
                 .add("instruction", recipe.getInstruction())
-                .add("ingredients", ingredients.toString())
+                .add("ingredients", ingredients)
                 .build();
             
                 return ResponseEntity.status(HttpStatus.CREATED).body(jo.toString());
