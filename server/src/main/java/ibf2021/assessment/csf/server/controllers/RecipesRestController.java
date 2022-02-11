@@ -15,14 +15,13 @@ import ibf2021.assessment.csf.server.services.RecipeService;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
-/* Write your request hander in this file */
 @RestController
-@RequestMapping(path="/api", produces = MediaType.APPLICATION_JSON_VALUE )
+@RequestMapping(path="/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecipesRestController {
     @Autowired
     RecipeService recipeService;
 
-    @GetMapping(path="/recipes") //, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/recipes") 
     public ResponseEntity<String> getRecipes() {
         System.out.println("getRecipes() hit");
         List<Recipe> recipes = recipeService.getAllRecipes();

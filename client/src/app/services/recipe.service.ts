@@ -6,7 +6,7 @@ import { Recipe } from "../models";
 @Injectable()
 export class RecipeService {
 
-  url = "http://localhost:8080/api/recipes"
+  url = "http://localhost:8080/"
 
   constructor(private http: HttpClient) {
 
@@ -14,7 +14,13 @@ export class RecipeService {
 
   async getAllRecipes() {
     return await lastValueFrom(
-      this.http.get<any>(this.url)
+      this.http.get<any>(this.url + "api/recipes")
+    )
+  }
+
+  async getRecipe(recipeId: string) {
+    return await lastValueFrom(
+      this.http.get<any>(this.url + "api/recipe/" + recipeId)
     )
   }
 }

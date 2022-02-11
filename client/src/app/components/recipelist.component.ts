@@ -27,4 +27,8 @@ export class RecipeListComponent implements OnInit {
       })
   }
 
+  addRecipe() {
+    console.info("Add recipe button pressed!")
+  }
+
 }
