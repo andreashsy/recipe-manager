@@ -80,12 +80,14 @@ export class RecipeAddComponent implements OnInit {
     this.recipeSvc.addRecipe(recipe)
       .then(result => {
         console.info("Added succesfully: ", result)
+        this.router.navigate([''])
       })
       .catch(error => {
         console.error("ERROR in recipeAdd sendRecipe: ", error)
+        this.router.navigate([''])
       })
 
-    this.router.navigate([''])
+
   }
 
 }
