@@ -9,11 +9,13 @@
     <tr>
       <td></td>
       <td>
+
         <table>
           <thead>
             <th>Ingredients</th>
           </thead>
-          <tbody formArrayName="ingredientsArray">
+          <p *ngIf="ingredientsArray.controls.length <= 0">You do not have any ingredients</p>
+          <tbody formArrayName="ingredientsArray"  *ngIf="ingredientsArray.controls.length >= 0">
             <tr *ngFor="let ingGroup of ingredientsArray.controls; let i = index" [formGroup]="ingGroup">
               <td><input type="text" formControlName="ingredientLine"></td>
               <td><button (click)="deleteIngredient(i)">X</button></td>
