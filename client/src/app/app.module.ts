@@ -12,8 +12,8 @@ import { RecipeService } from './services/recipe.service';
 
 const appRoutes: Routes = [
   {path: '', component: RecipeListComponent},
-  {path: 'add', component: RecipeDetailComponent},
-  {path: 'todo/:id', component: RecipeAddComponent},
+  {path: 'recipe/:recipeId', component: RecipeDetailComponent},
+  {path: 'add', component: RecipeAddComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ]
 
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule,
+    RouterModule.forRoot(appRoutes, {useHash: true}),
     ReactiveFormsModule, FormsModule,
     HttpClientModule
   ],
